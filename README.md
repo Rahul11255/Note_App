@@ -3,7 +3,7 @@ Hello everyone,
 Let's see how to use the repository:
 
 Step 1:
--> Download the Zip file of the repository.
+-> Download the Zip file of the repository. and Extract All
 
 Step 2:
 -> Open the folder in Visual Studio Code.
