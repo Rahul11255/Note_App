@@ -1,0 +1,63 @@
+
+
+
+.notes_card{
+    background-color: rgba(130, 227, 240, 0.863);
+    border-radius: 10px;
+    padding: 8px 10px;
+}
+.notes_card h3{
+    color: rgb(4, 75, 75);
+    text-transform: capitalize;
+    font-size: px;
+}
+
+.notes_card p>span{
+ color: rgb(100, 109, 109);
+ text-transform: capitalize;
+ font-size: 18px;
+ letter-spacing: 1px;
+ font-weight: 500;
+}
+
+.notes_card p{
+    color: black;
+    font-size: 15px;
+
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.update_text{
+    font-weight: 500;
+    text-transform: capitalize;
+    color: rgb(6, 89, 104);
+    font-size: 30px;
+}
+.up_container{
+    /* margin-top: -60px; */
+    width: 100%;
+    background-color: rgba(181, 221, 201, 0.548);
+    height: 100vh;
+}
+
+.up_form{
+    width: 50%;
+    padding: 10px 20px ;
+    background-color: rgb(207, 250, 137);
+    border-radius: 10px;
+}
+
+@media screen and (max-width:480px) {
+    .up_form{
+        width: 90%;
+        margin-top: 50px;
+    }
+    .update_text{
+        margin-top: 120px;
+    }
+
+    .note_list{
+        padding: 0px 30px;
+    }
+}
