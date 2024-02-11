@@ -2,6 +2,8 @@ import React, {  useState } from "react";
 import "./landing/landing.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const LoginForm = () => {
   // define login form state
@@ -21,6 +23,31 @@ const LoginForm = () => {
       [name]: value,
     });
   };
+
+
+  const successMsg=()=>{
+    toast.success('🦄 Login Successfull!', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      theme: "colored",
+      transition: "Bounce",
+      });
+  }
+
+  const errorMsg=()=>{
+    toast.error('Invalid email or password. Please try again later.', {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: "Zoom",
+      });
+  }
 
   // this function first check input is blank our note and after the full fill this condition data send to backend
   const handleSubmit = async (e) => {
@@ -55,15 +82,17 @@ const LoginForm = () => {
         localStorage.setItem("username", username);
         localStorage.setItem("loggedIn", true);
         setFormData({});
-        alert("Data Submitted Successfully");
-        console.log(localStorage.username);
-        navigate("/create-note");
+        // alert("Data Submitted Successfully");
+        successMsg()
+        setTimeout(() => {
+            navigate("/create-note");
+          }, 1500);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          alert("An error occurred while logging in. Please try again later.");
+          // alert("An error occurred while logging in. Please try again later.");
           
         } else {
-          alert("Invalid email or password. Please try again.");
+          errorMsg()
         }
       }
     }
@@ -84,6 +113,7 @@ const LoginForm = () => {
 
 
   return (
+    <>
     <form className="login_container" onSubmit={handleSubmit}>
       <h3>Login</h3>
       <input
@@ -111,6 +141,8 @@ const LoginForm = () => {
         Create now
       </Link>
     </form>
+    <ToastContainer/>
+    </>
   );
 };
 
