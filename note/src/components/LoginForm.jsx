@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./landing/landing.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -25,10 +25,10 @@ const LoginForm = () => {
   // this function first check input is blank our note and after the full fill this condition data send to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const validationErrors = {};
     let isFormValid = true;
-
+  
     if (!formData.email.trim()) {
       validationErrors.email = "Email is required";
       isFormValid = false;
@@ -36,7 +36,7 @@ const LoginForm = () => {
       validationErrors.email = "Email is not valid";
       isFormValid = false;
     }
-
+  
     if (!formData.password.trim()) {
       validationErrors.password = "Password is required";
       isFormValid = false;
@@ -44,30 +44,31 @@ const LoginForm = () => {
       validationErrors.password = "Password should be at least 6 characters";
       isFormValid = false;
     }
-
+  
     setErrors(validationErrors);
-
+  
     if (isFormValid) {
       try {
-        await axios
-          .post("http://127.0.0.1:5000/api/login", formData)
-          .then((res) => {
-            const { _id, username } = res.data.data;
-            localStorage.setItem("_id", _id);
-            localStorage.setItem("username", username);
-            localStorage.setItem("loggedIn", true);
-          });
-
+        const res = await axios.post("http://127.0.0.1:5000/api/login", formData);
+        const { _id, username } = res.data.data;
+        localStorage.setItem("_id", _id);
+        localStorage.setItem("username", username);
+        localStorage.setItem("loggedIn", true);
         setFormData({});
         alert("Data Submitted Successfully");
         console.log(localStorage.username);
         navigate("/create-note");
       } catch (error) {
-        // console.log(error);
-        alert("wrong user please fill Valid data");
+        if (error.response && error.response.status === 401) {
+          alert("An error occurred while logging in. Please try again later.");
+          
+        } else {
+          alert("Invalid email or password. Please try again.");
+        }
       }
     }
   };
+  
 
   // this help to navigate our page this methods come to react-router dom
 
