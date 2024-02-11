@@ -4,15 +4,14 @@ import "./Keep.css";
 import axios from "axios";
 
 const KeepNotes = () => {
-  // this usestate handle our get note data
   const [note, setNote] = useState([]);
-
-  // this usestaet handle form input data
   const [formData, setFormData] = useState({
     user_id: localStorage._id,
+    title: "",
+    message: "",
   });
+  const navigate = useNavigate();
 
-  // this function perform onchange method
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,9 +20,6 @@ const KeepNotes = () => {
     });
   };
 
-  const navigate = useNavigate();
-
-  // this function logout our user
   const logout = () => {
     const logoutConfirmed = window.confirm("Are you sure you want to logout?");
     if (logoutConfirmed) {
@@ -32,24 +28,21 @@ const KeepNotes = () => {
     }
   };
 
-  // this function help send data into backend
   const saveNotes = (e) => {
     e.preventDefault();
-
-    if (formData.title == null || formData.message == null) {
-      alert("kindly please fill-up all details ");
+    if (!formData.title || !formData.message) {
+      alert("Please fill in all details.");
     } else {
       axios
         .post("http://127.0.0.1:5000/api/createnote", formData)
         .then((res) => {
-          // getUserproperty()
           alert("Data Submitted Successfully");
-          setFormData({});
-          navigate("/create-note");
-          window.location.reload();
+          setFormData({
+            user_id: localStorage._id,
+            title: "",
+            message: "",
+          });
           getUsernotes();
-
-          // location.reload()
         })
         .catch((err) => {
           console.log(err);
@@ -57,36 +50,27 @@ const KeepNotes = () => {
     }
   };
 
-  // its local id when user is login then  i am save this id on localstorage and use for call only his notes
-  const ids = localStorage._id;
-
   useEffect(() => {
     getUsernotes();
-  }, [ids]);
+  }, []);
 
-  // get the notes
   const getUsernotes = () => {
     axios
       .get(`http://127.0.0.1:5000/api/notes/${localStorage._id}`)
       .then((res) => {
-        console.log(res.data);
         setNote(res.data);
       });
   };
 
-  // this function help to delete note on database
   const delteNotes = async (path) => {
     try {
-      axios.delete(`http://127.0.0.1:5000/api/note/${path}`).then((res) => {
-        console.log(res);
-        const deleteConfirmed = window.confirm(
-          "Are you sure you want to Delete note?"
-        );
-        if (deleteConfirmed) {
-          window.location.reload();
-        }
-        // navigate("/permission-module")
-      });
+      const deleteConfirmed = window.confirm(
+        "Are you sure you want to Delete note?"
+      );
+      if (deleteConfirmed) {
+        await axios.delete(`http://127.0.0.1:5000/api/note/${path}`);
+        getUsernotes(); // Refresh notes after deletion
+      }
     } catch (error) {
       console.log(error);
     }
@@ -143,7 +127,7 @@ const KeepNotes = () => {
                     Title:
                   </label>
                   <input
-                    value={formData.title || ""}
+                    value={formData.title}
                     type="text"
                     name="title"
                     className="form-control"
@@ -157,7 +141,7 @@ const KeepNotes = () => {
                   </label>
                   <textarea
                     name="message"
-                    value={formData.message || ""}
+                    value={formData.message}
                     onChange={handleChange}
                     className="form-control"
                     id="message-text"
@@ -190,25 +174,23 @@ const KeepNotes = () => {
           {note
             .slice(0)
             .reverse()
-            .map((list) => {
-              return (
-                <div key={list._id} className=" w-100 mb-4 notes_card">
-                  <h3>{list.title}</h3>
-                  <p>
-                    <span>message : </span> {list.message}
-                  </p>
-                  <Link to={`/update/` + list._id} className="m-2">
-                    <button className="btn btn-success">Edit</button>
-                  </Link>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => delteNotes(list._id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              );
-            })}
+            .map((list) => (
+              <div key={list._id} className="w-100 mb-4 notes_card">
+                <h3>{list.title}</h3>
+                <p>
+                  <span>message : </span> {list.message}
+                </p>
+                <Link to={`/update/` + list._id} className="m-2">
+                  <button className="btn btn-success">Edit</button>
+                </Link>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => delteNotes(list._id)}
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
         </div>
       </div>
     </div>

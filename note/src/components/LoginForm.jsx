@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./landing/landing.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -70,7 +70,17 @@ const LoginForm = () => {
   };
 
   // this help to navigate our page this methods come to react-router dom
+
+  
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+  //   if (loggedIn) {
+  //     navigate("/create-note");
+  //   }
+  // }, [navigate]);
+
 
   return (
     <form className="login_container" onSubmit={handleSubmit}>
