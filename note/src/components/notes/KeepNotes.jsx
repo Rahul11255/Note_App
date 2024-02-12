@@ -102,16 +102,16 @@ const KeepNotes = () => {
         aria-hidden={!showLogoutModal}
         style={{ display: showLogoutModal ? 'block' : 'none' }}
       >
-        <div className="modal-dialog modal-dialog-centered  ">
-          <div className="modal-content">
-            <div className="modal-header">
+        <div className="modal-dialog modal-dialog-centered   ">
+          <div className="modal-content ">
+            <div className="modal-header bg-light">
               <h5 className="modal-title" id="exampleModalLabel">Logout</h5>
               <button type="button" className="btn-close" onClick={handleCloseLogoutModal}></button>
             </div>
             <div className="modal-body">
               Are you sure you want to logout?
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer bg-light">
               <button type="button" className="btn btn-secondary" onClick={handleCloseLogoutModal}>Cancel</button>
               <button type="button" className="btn btn-danger" onClick={handleLogout}>Logout</button>
             </div>
