@@ -76,7 +76,7 @@ const LoginForm = () => {
   
     if (isFormValid) {
       try {
-        const res = await axios.post("http://127.0.0.1:5000/api/login", formData);
+        const res = await axios.post("api/login", formData);
         const { _id, username } = res.data.data;
         localStorage.setItem("_id", _id);
         localStorage.setItem("username", username);

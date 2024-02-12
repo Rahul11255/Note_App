@@ -34,7 +34,7 @@ const KeepNotes = () => {
       alert("Please fill in all details.");
     } else {
       axios
-        .post("http://127.0.0.1:5000/api/createnote", formData)
+        .post("api/createnote", formData)
         .then((res) => {
           alert("Data Submitted Successfully");
           setFormData({
@@ -56,7 +56,7 @@ const KeepNotes = () => {
 
   const getUsernotes = () => {
     axios
-      .get(`http://127.0.0.1:5000/api/notes/${localStorage._id}`)
+      .get(`api/notes/${localStorage._id}`)
       .then((res) => {
         setNote(res.data);
       });
@@ -68,7 +68,7 @@ const KeepNotes = () => {
         "Are you sure you want to Delete note?"
       );
       if (deleteConfirmed) {
-        await axios.delete(`http://127.0.0.1:5000/api/note/${path}`);
+        await axios.delete(`api/note/${path}`);
         getUsernotes(); // Refresh notes after deletion
       }
     } catch (error) {

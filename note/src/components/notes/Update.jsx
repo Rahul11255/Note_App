@@ -17,7 +17,7 @@ const Update = () => {
   // get note data
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:5000/api/singleNote/${id}`)
+      .get(`/api/singleNote/${id}`)
       .then((res) => {
         setNote(res.data);
       })
@@ -36,7 +36,7 @@ const Update = () => {
       alert("kindly please fill-up all details ");
     } else {
       axios
-        .put(`http://127.0.0.1:5000/api/update/${id}`, note)
+        .put(`/api/update/${id}`, note)
         .then((res) => {
           // getUserproperty()
           alert("Note UpDate Successfully");

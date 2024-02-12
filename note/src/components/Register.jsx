@@ -80,7 +80,7 @@ const Register = () => {
   
     if (isFormValid) {
       try {
-        const response = await axios.post("http://127.0.0.1:5000/api/register", formData);
+        const response = await axios.post("api/register", formData);
         if (response.data.error) {
           errorMsg() // Display the error message from the backend
 
