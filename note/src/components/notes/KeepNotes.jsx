@@ -112,8 +112,8 @@ const KeepNotes = () => {
               Are you sure you want to logout?
             </div>
             <div className="modal-footer bg-light">
-              <button type="button" className="btn btn-secondary" onClick={handleCloseLogoutModal}>Cancel</button>
-              <button type="button" className="btn btn-danger" onClick={handleLogout}>Logout</button>
+              <button type="button" className="btn btn-success" onClick={handleCloseLogoutModal}>No</button>
+              <button type="button" className="btn btn-danger" onClick={handleLogout}>Yes</button>
             </div>
           </div>
         </div>
