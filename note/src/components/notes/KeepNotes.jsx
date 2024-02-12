@@ -106,7 +106,7 @@ const KeepNotes = () => {
           <div className="modal-content ">
             <div className="modal-header bg-light">
               <h5 className="modal-title" id="exampleModalLabel">Logout</h5>
-              <button type="button" className="btn-close" onClick={handleCloseLogoutModal}></button>
+              {/* <button type="button" className="btn-close" onClick={handleCloseLogoutModal}></button> */}
             </div>
             <div className="modal-body">
               Are you sure you want to logout?
