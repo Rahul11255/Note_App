@@ -10,6 +10,7 @@ const KeepNotes = () => {
     title: "",
     message: "",
   });
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -20,12 +21,15 @@ const KeepNotes = () => {
     });
   };
 
+  const handleCloseLogoutModal = () => setShowLogoutModal(false);
+
   const logout = () => {
-    const logoutConfirmed = window.confirm("Are you sure you want to logout?");
-    if (logoutConfirmed) {
-      localStorage.clear();
-      navigate("/");
-    }
+    setShowLogoutModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
   };
 
   const saveNotes = (e) => {
@@ -88,6 +92,33 @@ const KeepNotes = () => {
           </button>
         </div>
       </nav>
+
+      {/* Logout Modal */}
+      <div
+        className={`modal   fade ${showLogoutModal ? 'show' : ''}`}
+        id="logoutModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden={!showLogoutModal}
+        style={{ display: showLogoutModal ? 'block' : 'none' }}
+      >
+        <div className="modal-dialog modal-dialog-centered  ">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Logout</h5>
+              <button type="button" className="btn-close" onClick={handleCloseLogoutModal}></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to logout?
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" onClick={handleCloseLogoutModal}>Cancel</button>
+              <button type="button" className="btn btn-danger" onClick={handleLogout}>Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="">
         <div className="text-center mt-3">
           <button
@@ -101,6 +132,7 @@ const KeepNotes = () => {
           </button>
         </div>
 
+        {/* Create Notes Modal */}
         <div
           className="modal fade"
           id="exampleModal"
