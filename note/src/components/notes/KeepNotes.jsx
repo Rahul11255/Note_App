@@ -95,7 +95,7 @@ const KeepNotes = () => {
 
       {/* Logout Modal */}
       <div
-        className={`modal   fade ${showLogoutModal ? 'show' : ''}`}
+        className={`modal fade ${showLogoutModal ? 'show' : ''}`}
         id="logoutModal"
         tabIndex="-1"
         aria-labelledby="exampleModalLabel"
