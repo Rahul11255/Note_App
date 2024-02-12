@@ -52,10 +52,10 @@ const Update = () => {
   return (
     <div className="up_container d-flex  flex-column align-items-center ">
       <Link to={"/create-note"}>
-        {" "}
-        <button className="btn mt-5 btn-light">Back</button>{" "}
+        
+        <button className="btn mt-4 btn-light">Back</button>
       </Link>
-      <h3 h1 className="mt-5 update_text mb-4">
+      <h3 h1 className="mt-3 update_text mb-4">
         Update your Notes
       </h3>
       <form className=" up_form">
