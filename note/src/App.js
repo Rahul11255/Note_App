@@ -14,7 +14,7 @@ function App() {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedIn'));
     if (loggedInUser) {
       setLoggedIn(true);
-      navigate("/create-note")
+      // navigate("/create-note")
 
     } else {
       setLoggedIn(false);
