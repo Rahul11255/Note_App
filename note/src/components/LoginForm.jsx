@@ -120,7 +120,6 @@ const LoginForm = () => {
         type="email"
         name="email"
         placeholder="example@gmail.com"
-        autoComplete="off"
         onChange={handleChange}
         className="mb-3"
       />
