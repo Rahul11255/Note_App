@@ -21,6 +21,18 @@
  font-weight: 500;
 }
 
+
+/* Overlay for modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1050; /* Ensure it covers the modal */
+  }
+
 .notes_card p{
     color: black;
     font-size: 15px;
@@ -46,7 +58,7 @@
 .up_form{
     width: 50%;
     padding: 10px 20px ;
-    background-color: rgb(207, 250, 137);
+    background-color: #649b8b;
     border-radius: 10px;
 }
 
@@ -58,12 +70,15 @@
 }
 
 .log-md-header{
-    background-color: rgb(238, 207, 207) !important;
+    background-color: rgb(243, 236, 236)!important;
     border: 2px solid rgb(6, 69, 73);
 }
 
 .log-md-body{
     background-color: lightcyan !important;
+    border-left: 2px solid rgb(6, 69, 73);
+    border-right: 2px solid rgb(6, 69, 73);
+
 }
 
 
@@ -87,7 +102,8 @@
         background-color: rgba(2, 59, 59, 0.993) !important;
     }
     .log-md-header{
-        background-color: rgb(243, 126, 126) !important;
+        background-color: rgb(17, 204, 157)!important;
+
     }
     .notes_card{
         background-color: rgba(130, 227, 240, 0.863);

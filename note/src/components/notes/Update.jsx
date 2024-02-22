@@ -52,7 +52,6 @@ const Update = () => {
   return (
     <div className="up_container d-flex  flex-column align-items-center ">
       <Link to={"/create-note"}>
-        
         <button className="btn mt-4 btn-light">Back</button>
       </Link>
       <h3 h1 className="mt-3 update_text mb-4">
@@ -60,7 +59,7 @@ const Update = () => {
       </h3>
       <form className=" up_form">
         <div class="form-group mb-4 mt-3">
-          <label for="exampleInputEmail1">Title</label>
+          <label for="exampleInputEmail1" style={{color:"white",letterSpacing:"1px"}}>Title</label>
           <input
             type="email"
             name="title"
@@ -72,7 +71,7 @@ const Update = () => {
           />
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
+          <label for="exampleInputPassword1"  style={{color:"white",letterSpacing:"1px"}}>Password</label>
           <textarea
             type="password"
             name="message"
@@ -82,7 +81,7 @@ const Update = () => {
             id="exampleInputPassword1"
           />
         </div>
-        <button type="submit" onClick={updatNotes} class="btn btn-primary mt-4">
+        <button type="submit" onClick={updatNotes} style={{backgroundColor:"#32CD32",color:"white"}} class="btn   mt-4">
           Update note
         </button>
       </form>

@@ -104,7 +104,7 @@ const Register = () => {
     <>
     <div className="register_container">
       <h1>Register</h1>
-      <Link to={"/"} className="home">
+      <Link to={"/"} className="home  text-center">
         Home
       </Link>
       <form onSubmit={handleSubmit} className="register_form">
