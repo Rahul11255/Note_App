@@ -49,6 +49,7 @@ const LoginForm = () => {
       });
   }
 
+  axios.defaults.withCredentials = true
   // this function first check input is blank our note and after the full fill this condition data send to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
