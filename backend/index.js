@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 // this cor help to send data our frontend to database
 app.use(cors(
   {
-    origin:["https://keep-note-app-orcin.vercel.app"],
+    origin:["https://keep-note-app-orcin.vercel.app/"],
     methods:["POST","GET"],
     credentials:true,
   }
