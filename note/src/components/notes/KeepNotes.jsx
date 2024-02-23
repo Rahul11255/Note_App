@@ -26,7 +26,7 @@ const KeepNotes = () => {
   };
 
   const getUsernotes = () => {
-    axios.get(`api/notes/${localStorage._id}`).then((res) => {
+    axios.get(`/api/notes/${localStorage._id}`).then((res) => {
       setNote(res.data);
     });
   };
