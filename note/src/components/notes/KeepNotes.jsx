@@ -11,8 +11,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const KeepNotes = () => {
   const [note, setNote] = useState([]);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const navigate = useNavigate();
   const [showMessage, setShowMessage] = useState(false);
+  const navigate = useNavigate();
 
   const handleCloseLogoutModal = () => setShowLogoutModal(false);
 
@@ -25,10 +25,13 @@ const KeepNotes = () => {
     navigate("/");
   };
 
-  const getUsernotes = () => {
-    axios.get(`/api/notes/${localStorage._id}`).then((res) => {
+  const getUsernotes = async () => {
+    try {
+      const res = await axios.get(`api/notes/${localStorage._id}`);
       setNote(res.data);
-    });
+    } catch (error) {
+      console.error("Error fetching user notes:", error);
+    }
   };
 
   useEffect(() => {
@@ -37,14 +40,10 @@ const KeepNotes = () => {
 
   return (
     <>
-      <nav className="navbar ">
+      <nav className="navbar">
         <div className="container-fluid">
           <h3 className="navbar-brand text-capitalize">
-            <AccountCircleIcon
-              sx={{ fontSize: 30 }}
-              style={{ cursor: "pointer" }}
-            />{" "}
-            : {localStorage.username}
+            <AccountCircleIcon sx={{ fontSize: 30 }} style={{ cursor: "pointer" }} />: {localStorage.username}
           </h3>
           <button type="button" className="btn btn-danger" onClick={logout}>
             <LogoutIcon /> Logout
@@ -52,7 +51,6 @@ const KeepNotes = () => {
         </div>
       </nav>
 
-      {/* Logout Modal POP-UP */}
       <div
         className={`modal fade ${showLogoutModal ? "show" : ""}`}
         id="logoutModal"
@@ -61,8 +59,8 @@ const KeepNotes = () => {
         aria-hidden={!showLogoutModal}
         style={{ display: showLogoutModal ? "block" : "none" }}
       >
-        <div className="modal-dialog modal-dialog-centered   ">
-          <div className="modal-content ">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
             <div className="modal-header log-md-header">
               <h5 className="modal-title" id="exampleModalLabel">
                 Logout
@@ -72,18 +70,10 @@ const KeepNotes = () => {
               Are you sure you want to logout?
             </div>
             <div className="modal-footer log-md-header">
-              <button
-                type="button"
-                className="btn btn-success"
-                onClick={handleCloseLogoutModal}
-              >
+              <button type="button" className="btn btn-success" onClick={handleCloseLogoutModal}>
                 No
               </button>
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={handleLogout}
-              >
+              <button type="button" className="btn btn-danger" onClick={handleLogout}>
                 Yes
               </button>
             </div>
@@ -118,9 +108,7 @@ const KeepNotes = () => {
         </div>
       )}
 
-      {/* Create Notes Modal */}
       <CreateNote getUsernotes={getUsernotes} setShowMessage={setShowMessage} />
-      {/* Notes Card */}
       <Card note={note} getUsernotes={getUsernotes} />
     </>
   );

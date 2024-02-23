@@ -14,7 +14,7 @@ const Card = ({ note, getUsernotes }) => {
         "Are you sure you want to Delete note?"
       );
       if (deleteConfirmed) {
-        await axios.delete(`api/note/${path}`);
+        await axios.delete(`/api/note/${path}`);
         getUsernotes(); // Refresh notes after deletion
       }
     } catch (error) {
