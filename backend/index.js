@@ -3,22 +3,16 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
+require('dotenv').config()
 const PORT = process.env.PORT || 5000;
 // help to send data in json formate in our database
+// middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // this cor help to send data our frontend to database
-app.use(cors(
-  // {
-  //   origin:["https://keep-note-app-orcin.vercel.app/"],
-  //   methods:["POST","GET"],
-  //   credentials:true,
-  // }
-));
-// connect to database
-// online data base add
-const DB =
-  "mongodb+srv://rr710505:Fo5KOGyuGSPI3TNi@cluster0.u67jqoi.mongodb.net/mernStack?retryWrites=true&w=majority";
+app.use(cors());
+
+const DB = process.env.MONGO_DB_ONLINE_URL
 
 mongoose
   .connect(DB, {
