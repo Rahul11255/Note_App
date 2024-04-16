@@ -24,7 +24,7 @@ const CreateNote = ({ getUsernotes, setShowMessage }) => {
       alert("Please fill in all details.");
     } else {
       axios
-        .post("api/createnote", formData)
+        .post("https://keepnote-api.onrender.com/api/createnote", formData)
         .then((res) => {
           setFormData({
             user_id: localStorage._id,

@@ -17,7 +17,7 @@ const Update = () => {
   // get note data
   useEffect(() => {
     axios
-      .get(`/api/singleNote/${id}`)
+      .get(`https://keepnote-api.onrender.com/api/singleNote/${id}`)
       .then((res) => {
         setNote(res.data);
       })
@@ -36,7 +36,7 @@ const Update = () => {
       alert("kindly please fill-up all details ");
     } else {
       axios
-        .put(`/api/update/${id}`, note)
+        .put(`https://keepnote-api.onrender.com/api/update/${id}`, note)
         .then((res) => {
           // getUserproperty()
           alert("Note UpDate Successfully");

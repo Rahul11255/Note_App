@@ -1,13 +1,15 @@
 const express = require("express");
+const morgan = require('morgan')
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const app = express();
 require('dotenv').config()
-const PORT = process.env.PORT || 5000;
+const PORT =  3000;
 // help to send data in json formate in our database
 // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(morgan('tiny'))
 app.use(bodyParser.json());
 // this cor help to send data our frontend to database
 app.use(cors());

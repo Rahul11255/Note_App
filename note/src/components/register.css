@@ -39,6 +39,12 @@ label{
     transition: background-color 0.3s;
     width: 100%;
 }
+.register_btn:active{
+    background-color: rgb(241, 91, 91);
+   margin-top: 2px;
+}
+
+
 .home{
     background-color: rgba(16, 73, 75, 0.39);
     color: #fff;

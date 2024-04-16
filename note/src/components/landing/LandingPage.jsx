@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./landing.css";
 import LoginForm from "../LoginForm";
 import notes from "../../images/note.png";
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import IconButton from '@mui/material/IconButton';
+import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const loggedIn = localStorage.getItem("loggedIn");
+    if (loggedIn === "true") {
+      // User is logged in, navigate to the appropriate page
+      navigate("/create-note");
+    }
+  }, [navigate]);
+
+  const handleIconButtonClick = () => {
+    navigate("/create-note");
+  };
+
   return (
     <>
       <div className="container-fluid landing_cant">
         <div className="row">
           <h2 className="text-center heading_text mt-3">
-            Note<span>Pad</span>
+            Note<span>Pad</span> 
+            {localStorage.getItem("loggedIn") === "true" && (
+              <IconButton onClick={handleIconButtonClick}>
+                <ContactMailIcon sx={{fontSize:40 , color:"blue"}}/>
+              </IconButton>
+            )}
           </h2>
         </div>
         <div className="row">

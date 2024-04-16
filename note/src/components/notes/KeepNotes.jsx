@@ -27,7 +27,7 @@ const KeepNotes = () => {
 
   const getUsernotes = async () => {
     try {
-      const res = await axios.get(`api/notes/${localStorage._id}`);
+      const res = await axios.get(`https://keepnote-api.onrender.com/api/notes/${localStorage._id}`);
       setNote(res.data);
     } catch (error) {
       console.error("Error fetching user notes:", error);
@@ -42,8 +42,8 @@ const KeepNotes = () => {
     <>
       <nav className="navbar">
         <div className="container-fluid">
-          <h3 className="navbar-brand text-capitalize">
-            <AccountCircleIcon sx={{ fontSize: 30 }} style={{ cursor: "pointer" }} />: {localStorage.username}
+          <h3 className="navbar-brand text-capitalize" onClick={()=>{navigate('/')}}>
+            <AccountCircleIcon  sx={{ fontSize: 30 }} style={{ cursor: "pointer" }} />: {localStorage.username}
           </h3>
           <button type="button" className="btn btn-danger" onClick={logout}>
             <LogoutIcon /> Logout

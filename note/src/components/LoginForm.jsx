@@ -1,21 +1,18 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import "./landing/landing.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 
-
 const LoginForm = () => {
-  // define login form state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  // when input is blank then this state throw error
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  // handle our input with help of onchange method in input
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -24,18 +21,17 @@ const LoginForm = () => {
     });
   };
 
-
-  const successMsg=()=>{
+  const successMsg = () => {
     toast.success('🦄 Login Successfull!', {
       position: "top-center",
       autoClose: 2000,
       hideProgressBar: false,
       theme: "colored",
       transition: "Bounce",
-      });
-  }
+    });
+  };
 
-  const errorMsg=()=>{
+  const errorMsg = () => {
     toast.error('Invalid email or password. Please try again later.', {
       position: "top-center",
       autoClose: 2000,
@@ -46,11 +42,9 @@ const LoginForm = () => {
       progress: undefined,
       theme: "colored",
       transition: "Zoom",
-      });
-  }
+    });
+  };
 
-  axios.defaults.withCredentials = true
-  // this function first check input is blank our note and after the full fill this condition data send to backend
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -77,71 +71,62 @@ const LoginForm = () => {
   
     if (isFormValid) {
       try {
-        const res = await axios.post("/api/login", formData);
+        const res = await axios.post("https://keepnote-api.onrender.com/api/login", formData);
         const { _id, username } = res.data.data;
         localStorage.setItem("_id", _id);
         localStorage.setItem("username", username);
         localStorage.setItem("loggedIn", true);
-        setFormData({});
-        // alert("Data Submitted Successfully");
-        successMsg()
+        setFormData({
+          email: "",
+          password: ""
+        });
+        successMsg();
         setTimeout(() => {
-            navigate("/create-note");
-          }, 1500);
+          navigate("/create-note");
+        }, 1500);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          // alert("An error occurred while logging in. Please try again later.");
-          
+          // Handle unauthorized access error
+          errorMsg();
         } else {
-          errorMsg()
+          // Handle other errors
+          errorMsg();
         }
       }
     }
   };
-  
-
-  // this help to navigate our page this methods come to react-router dom
-
-  
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
-  //   if (loggedIn) {
-  //     navigate("/create-note");
-  //   }
-  // }, [navigate]);
-
 
   return (
     <>
-    <form className="login_container" onSubmit={handleSubmit}>
-      <h3>Login</h3>
-      <input
-        type="email"
-        name="email"
-        placeholder="example@gmail.com"
-        onChange={handleChange}
-        className="mb-3"
-      />
-      {errors.email && <span className="error">{errors.email}</span>}
-      <input
-        type="password"
-        name="password"
-        placeholder="******"
-        className="mb-3"
-        onChange={handleChange}
-      />
-      {errors.password && <span className="error">{errors.password}</span>}
-      <button type="submit" className="login_btn ">
-        Login
-      </button>
-      <p className="p">or</p>
-      <Link to={"/register"} className="create_now">
-        Create now
-      </Link>
-    </form>
-    <ToastContainer/>
+      <form className="login_container" onSubmit={handleSubmit}>
+        <h3>Login</h3>
+        <input
+          type="email"
+          name="email"
+          placeholder="example@gmail.com"
+          onChange={handleChange}
+          className="mb-3"
+          value={formData.email}
+        />
+        {errors.email && <span className="error">{errors.email}</span>}
+        <input
+          type="password"
+          name="password"
+          placeholder="******"
+          className="mb-3"
+          onChange={handleChange}
+          value={formData.password}
+        />
+        {errors.password && <span className="error">{errors.password}</span>}
+        <button type="submit" className="login_btn">
+          Login
+        </button>
+        <p className="p">or</p>
+        <Link to={"/register"} className="create_now">
+          Create now
+        </Link>
+      </form>
+      <ToastContainer />
     </>
   );
 };
