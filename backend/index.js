@@ -29,7 +29,7 @@ mongoose
 // mongodb://localhost:27017/KeeperApp
 
 app.get("/", (req, res) => {
-  res.json({ msg: "this is property management app ruunning " });
+  res.json({ msg: "this is note keep app ruunning " });
 });
 
 // require our routes
