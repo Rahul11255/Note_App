@@ -12,6 +12,7 @@ const Register = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // State for loading
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -50,6 +51,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Set loading state to true when form is submitted
 
     const validationErrors = {};
     let isFormValid = true;
@@ -91,7 +93,11 @@ const Register = () => {
       } catch (error) {
         userExistsMsg(); // Display the error message from the backend
         // console.log(error)
+      } finally {
+        setIsLoading(false); // Set loading state to false after request completes
       }
+    } else {
+      setIsLoading(false); // Set loading state to false if form is not valid
     }
   };
 
@@ -142,8 +148,8 @@ const Register = () => {
             {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
-          <button type="submit" className="register_btn">
-            Register
+          <button type="submit" className="register_btn" disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Register'} {/* Display loading text if isLoading is true */}
           </button>
         </form>
       </div>
