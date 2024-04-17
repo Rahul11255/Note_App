@@ -11,6 +11,7 @@ const LoginForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // New state for loading
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -47,10 +48,11 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setIsLoading(true); // Set loading state to true when the form is submitted
+
     const validationErrors = {};
     let isFormValid = true;
-  
+
     if (!formData.email.trim()) {
       validationErrors.email = "Email is required";
       isFormValid = false;
@@ -58,7 +60,7 @@ const LoginForm = () => {
       validationErrors.email = "Email is not valid";
       isFormValid = false;
     }
-  
+
     if (!formData.password.trim()) {
       validationErrors.password = "Password is required";
       isFormValid = false;
@@ -66,9 +68,9 @@ const LoginForm = () => {
       validationErrors.password = "Password should be at least 6 characters";
       isFormValid = false;
     }
-  
+
     setErrors(validationErrors);
-  
+
     if (isFormValid) {
       try {
         const res = await axios.post("https://keepnote-api.onrender.com/api/login", formData);
@@ -92,7 +94,11 @@ const LoginForm = () => {
           // Handle other errors
           errorMsg();
         }
+      } finally {
+        setIsLoading(false); // Set loading state to false when request completes
       }
+    } else {
+      setIsLoading(false); // Set loading state to false if the form is not valid
     }
   };
 
@@ -118,8 +124,8 @@ const LoginForm = () => {
           value={formData.password}
         />
         {errors.password && <span className="error">{errors.password}</span>}
-        <button type="submit" className="login_btn">
-          Login
+        <button type="submit" className="login_btn" disabled={isLoading}>
+          {isLoading ? 'Loading...' : 'Login'} {/* Display loading text if isLoading is true */}
         </button>
         <p className="p">or</p>
         <Link to={"/register"} className="create_now">
